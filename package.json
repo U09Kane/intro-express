@@ -1,0 +1,26 @@
+{
+  "name": "intro-express",
+  "version": "1.0.0",
+  "description": "a basic introductory expressjs app",
+  "main": "app.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon ./app.js localhost 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/U09Kane/intro-express.git"
+  },
+  "author": "u09kane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/U09Kane/intro-express/issues"
+  },
+  "homepage": "https://github.com/U09Kane/intro-express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
