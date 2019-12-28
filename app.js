@@ -5,8 +5,9 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { router: admin, products } = require('./routes/admin');
+const admin = require('./routes/admin');
 const shop = require('./routes/shop');
+const { get404 } = require('./controllers/errors');
 const root = require('./util/path');
 
 
@@ -18,13 +19,9 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(staticPath));
 
-app.use('/', shop);
+app.use(shop);
 app.use('/admin', admin);
 
-app.use((req, res, next) => {
-  res.status(404)
-    .render('404', { title: 'Page Not Found' });
-    // .sendFile(path.join(__dirname, 'views', '404.html'));
-});
+// app.use('/', get404);
 const server = http.createServer(app);
 server.listen(3000);
