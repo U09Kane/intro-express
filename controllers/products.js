@@ -1,18 +1,18 @@
-const products = [];
+const Product = require('../models/product');
+
 
 exports.getAddProducts = (req, res, next) => {
   res.render('add-product.pug', { title: 'Add Product', path: '/admin/add-product' });
-  // const page = path.join(root, 'views', 'add-product.html');
-  // res.sendFile(page);
 };
 
 exports.postAddProducts = (req, res) => {
-  products.push({
-    title: req.body.title,
-  });
+  const product = new Product(req.body.title);
+  product.save();
   res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
-  res.render('shop', { title: 'Shop', path: '/', products });
+  const products = Product.fetchAll((products) => {
+    res.render('shop', { title: 'Shop', path: '/', products });
+  });
 };
