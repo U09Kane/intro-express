@@ -1,27 +1,24 @@
-
-const http = require('http');
 const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const admin = require('./routes/admin');
-const shop = require('./routes/shop');
-const { get404 } = require('./controllers/errors');
-const root = require('./util/path');
-
+const errorController = require('./controllers/error');
 
 const app = express();
-const staticPath = path.join(root, 'public');
-app.set('view engine', 'pug');
+
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(staticPath));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(shop);
-app.use('/admin', admin);
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
-// app.use('/', get404);
-const server = http.createServer(app);
-server.listen(3000);
+app.use(errorController.get404);
+
+app.listen(3000);
